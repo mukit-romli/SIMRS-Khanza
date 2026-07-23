@@ -5,12 +5,12 @@
     require_once('../conf/conf.php');
 
     function getKey() {
-       $keyRS = "0d9bed920f699d89fcb5dad3e5b80eb98867494b31ea20f1f0639a0a24b4b16e";   
+       $keyRS = "68bd6c822af8e5e7925ef16bf72bed25f96d17c981bfdaf7b7c163368f559249";   
        return $keyRS;
     }
 
     function getUrlWS() {
-        $UrlWS = "http://202.162.211.34:46/E-Klaim/ws.php";
+        $UrlWS = "https://inacbg.medifyapp.com/E-Klaim/ws.php";
         return $UrlWS;
     }
     
