@@ -1796,4 +1796,40 @@ public class koneksiDB {
         }
         return var;
     }
+    
+    public static String TAMPILTARIFOPERASI(){
+        try (FileInputStream fis = new FileInputStream("setting/database.xml")) {
+            prop.loadFromXML(fis);
+            var=prop.getProperty("TAMPILTARIFOPERASI");
+        }catch(Exception e){
+            var="no"; 
+        }
+        return var;
+    }
+    
+    public static String URLAPPLINKSATUSEHAT() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("URLAPPLINKSATUSEHAT");
+            if (var == null) {
+                var = "";
+            }
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String IDORGBPJSSATUSEHAT() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("IDORGBPJSSATUSEHAT");
+            if (var == null) {
+                var = "";
+            }
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
 }
