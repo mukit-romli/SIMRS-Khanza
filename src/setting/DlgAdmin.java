@@ -126,7 +126,7 @@ public class DlgAdmin extends javax.swing.JDialog {
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
-        tbAdmin.setAutoCreateRowSorter(true);
+        tbAdmin.setAutoCreateRowSorter(false);
         tbAdmin.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbAdmin.setName("tbAdmin"); // NOI18N
         tbAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -442,7 +442,7 @@ public class DlgAdmin extends javax.swing.JDialog {
     private widget.Table tbAdmin;
     // End of variables declaration//GEN-END:variables
 
-    public void tampil() {
+    private void tampil() {
         Valid.tabelKosong(tabMode);
         try{
             ps=koneksi.prepareStatement("select AES_DECRYPT(admin.usere,'nur'),AES_DECRYPT(admin.passworde,'windi') from admin");

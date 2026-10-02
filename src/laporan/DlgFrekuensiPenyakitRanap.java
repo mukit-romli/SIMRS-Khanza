@@ -150,7 +150,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         label9 = new widget.Label();
         BtnPrint = new widget.Button();
         BtnKeluar = new widget.Button();
-        TabRawat = new javax.swing.JTabbedPane();
+        TabRawat = new widget.TabPane();
         scrollPane1 = new widget.ScrollPane();
         tbDokter = new widget.Table();
         scrollPane2 = new widget.ScrollPane();
@@ -395,7 +395,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         scrollPane1.setName("scrollPane1"); // NOI18N
         scrollPane1.setOpaque(true);
 
-        tbDokter.setAutoCreateRowSorter(true);
+        tbDokter.setAutoCreateRowSorter(false);
         tbDokter.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -418,7 +418,7 @@ public class DlgFrekuensiPenyakitRanap extends javax.swing.JDialog {
         scrollPane2.setName("scrollPane2"); // NOI18N
         scrollPane2.setOpaque(true);
 
-        tbDokter2.setAutoCreateRowSorter(true);
+        tbDokter2.setAutoCreateRowSorter(false);
         tbDokter2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -2750,7 +2750,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     private widget.TextBox Kd2;
     private javax.swing.JPanel PanelInput;
     private widget.TextBox TCari;
-    private javax.swing.JTabbedPane TabRawat;
+    private widget.TabPane TabRawat;
     private widget.Tanggal Tgl1;
     private widget.Tanggal Tgl2;
     private widget.InternalFrame internalFrame1;

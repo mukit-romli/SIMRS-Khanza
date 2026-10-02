@@ -208,7 +208,7 @@ public final class DlgPemasukanLain extends javax.swing.JDialog {
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
-        tbResep.setAutoCreateRowSorter(true);
+        tbResep.setAutoCreateRowSorter(false);
         tbResep.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbResep.setComponentPopupMenu(Popup);
         tbResep.setName("tbResep"); // NOI18N
@@ -785,6 +785,8 @@ public final class DlgPemasukanLain extends javax.swing.JDialog {
                     emptTeks();
                     hitung();
                 }
+            }else{
+                JOptionPane.showMessageDialog(null,"Maaf, Gagal menghapus. Pilih dulu data yang mau dihapus.\nKlik data pada table untuk memilih...!!!!");
             }                
         }
 }//GEN-LAST:event_BtnHapusActionPerformed

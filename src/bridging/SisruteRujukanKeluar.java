@@ -699,7 +699,7 @@ public final class SisruteRujukanKeluar extends javax.swing.JDialog {
         MnSuratRujukan = new javax.swing.JMenuItem();
         ppRiwayat = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
-        TabRawat = new javax.swing.JTabbedPane();
+        TabRawat = new widget.TabPane();
         internalFrame2 = new widget.InternalFrame();
         Scroll1 = new widget.ScrollPane();
         FormInput = new widget.PanelBiasa();
@@ -826,7 +826,7 @@ public final class SisruteRujukanKeluar extends javax.swing.JDialog {
         BtnCari = new widget.Button();
         jLabel7 = new widget.Label();
         LCount = new widget.Label();
-        TabRujukan = new javax.swing.JTabbedPane();
+        TabRujukan = new widget.TabPane();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
         Scroll2 = new widget.ScrollPane();
@@ -1955,7 +1955,7 @@ public final class SisruteRujukanKeluar extends javax.swing.JDialog {
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
-        tbObat.setAutoCreateRowSorter(true);
+        tbObat.setAutoCreateRowSorter(false);
         tbObat.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbObat.setComponentPopupMenu(jPopupMenu1);
         tbObat.setName("tbObat"); // NOI18N
@@ -1977,7 +1977,7 @@ public final class SisruteRujukanKeluar extends javax.swing.JDialog {
         Scroll2.setName("Scroll2"); // NOI18N
         Scroll2.setOpaque(true);
 
-        tbObat2.setAutoCreateRowSorter(true);
+        tbObat2.setAutoCreateRowSorter(false);
         tbObat2.setToolTipText("Silahkan klik untuk memilih data yang mau diedit ataupun dihapus");
         tbObat2.setComponentPopupMenu(jPopupMenu1);
         tbObat2.setName("tbObat2"); // NOI18N
@@ -3170,8 +3170,8 @@ public final class SisruteRujukanKeluar extends javax.swing.JDialog {
     private widget.TextBox TNoRM;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
-    private javax.swing.JTabbedPane TabRawat;
-    private javax.swing.JTabbedPane TabRujukan;
+    private widget.TabPane TabRawat;
+    private widget.TabPane TabRujukan;
     private widget.Tanggal TanggalRujuk;
     private widget.TextBox TekananDarah;
     private widget.TextBox TerapiTindakan;

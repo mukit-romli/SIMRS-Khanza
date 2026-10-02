@@ -174,7 +174,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         WaktuDiet = new widget.TextBox();
         JamDiet = new widget.TextBox();
         BtnJam = new widget.Button();
-        TabRawat = new javax.swing.JTabbedPane();
+        TabRawat = new widget.TabPane();
         Scroll = new widget.ScrollPane();
         tbDataDiet = new widget.Table();
         Scroll1 = new widget.ScrollPane();
@@ -677,7 +677,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
-        tbDataDiet.setAutoCreateRowSorter(true);
+        tbDataDiet.setAutoCreateRowSorter(false);
         tbDataDiet.setComponentPopupMenu(jPopupMenu1);
         tbDataDiet.setName("tbDataDiet"); // NOI18N
         tbDataDiet.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -697,7 +697,7 @@ public class DlgPemberianDiet extends javax.swing.JDialog {
         Scroll1.setName("Scroll1"); // NOI18N
         Scroll1.setOpaque(true);
 
-        tbRekapDiet.setAutoCreateRowSorter(true);
+        tbRekapDiet.setAutoCreateRowSorter(false);
         tbRekapDiet.setComponentPopupMenu(jPopupMenu1);
         tbRekapDiet.setName("tbRekapDiet"); // NOI18N
         tbRekapDiet.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1296,7 +1296,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.TextBox TCari;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
-    private javax.swing.JTabbedPane TabRawat;
+    private widget.TabPane TabRawat;
     private widget.TextBox WaktuDiet;
     private widget.TextBox WaktuDiet2;
     private widget.InternalFrame internalFrame1;

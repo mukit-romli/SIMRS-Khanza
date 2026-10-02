@@ -290,7 +290,8 @@ public class DlgUser extends javax.swing.JDialog {
                 "[M]Catatan Observasi Ruang Operasi","[M]Hasil USG Abdomen","[M]Intervensi Nyeri Farmakologi","[M]Intervensi Nyeri Non Farmakologi","[P]Surat Pengajuan Cuti Perawatan",
                 "[M]Check List Kriteria Masuk Isolasi","[L]Mapping Tindakan Ralan KPTL Satu Sehat","[L]Mapping Tindakan Ranap KPTL Satu Sehat","[L]Mapping Tindakan Radiologi KPTL Satu Sehat",
                 "[L]Mapping Tindakan Laborat KPTL Satu Sehat","[L]Mapping Tindakan Operasi KPTL Satu Sehat","[L]Mapping Tarif Kamar KPTL Satu Sehat","[M]Check List Kriteria Keluar Isolasi",
-                "[L]Bridging TTE Satu Sehat","[L]Kirim Composition Satu Sehat"
+                "[L]Bridging TTE Satu Sehat","[L]Kirim Composition Satu Sehat","[K]Ringkasan Hutang Vendor Aset/Inventaris","[K]Ringkasan Beban Hutang Lain","[U]Set Resep Per Cara Bayar",
+                "[M]Skrining TOLAC","[M]Admisi & Skoring TOLAC"
         };
         
         tabMode=new DefaultTableModel(null,row){
@@ -613,6 +614,8 @@ public class DlgUser extends javax.swing.JDialog {
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, 
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, 
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, 
+                java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, 
+                java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, 
                 java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Boolean.class
              };
              @Override
@@ -626,7 +629,7 @@ public class DlgUser extends javax.swing.JDialog {
         tbUser.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbUser.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 1217;i++) {
+        for (i = 0; i < 1222;i++) {
             TableColumn column = tbUser.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
@@ -3731,6 +3734,21 @@ public class DlgUser extends javax.swing.JDialog {
                 case 1216:
                     column.setPreferredWidth(165);
                     break;
+                case 1217:
+                    column.setPreferredWidth(225);
+                    break;
+                case 1218:
+                    column.setPreferredWidth(165);
+                    break;
+                case 1219:
+                    column.setPreferredWidth(147);
+                    break;
+                case 1220:
+                    column.setPreferredWidth(98);
+                    break;
+                case 1221:
+                    column.setPreferredWidth(141);
+                    break;
                 default:
                     column.setPreferredWidth(133);
                     break;
@@ -4162,7 +4180,7 @@ public class DlgUser extends javax.swing.JDialog {
                     "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"+
                     "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"+
                     "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false',"+
-                    "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false'","User")==true){
+                    "'false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false'","User")==true){
                 tabMode.addRow(new Object[]{
                     TKd.getText(),TNmUser.getText(),Jabatan.getText(),TPass.getText(),false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
@@ -4193,7 +4211,7 @@ public class DlgUser extends javax.swing.JDialog {
                     false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,
-                    false,false,false,false,false,false,false
+                    false,false,false,false,false,false,false,false,false,false,false,false
                 });
                 emptTeks();
                 LCount.setText(""+tabMode.getRowCount());
@@ -5457,7 +5475,12 @@ public class DlgUser extends javax.swing.JDialog {
                     "satu_sehat_mapping_kptl_tarif_kamar='"+tbUser.getValueAt(i,1213).toString()+"',"+
                     "checklist_kriteria_keluar_isolasi='"+tbUser.getValueAt(i,1214).toString()+"',"+
                     "satu_sehat_tanda_tangan_elektronik='"+tbUser.getValueAt(i,1215).toString()+"',"+
-                    "satu_sehat_kirim_composition='"+tbUser.getValueAt(i,1216).toString()+"'")==true){
+                    "satu_sehat_kirim_composition='"+tbUser.getValueAt(i,1216).toString()+"',"+
+                    "ringkasan_hutang_vendor_inventaris='"+tbUser.getValueAt(i,1217).toString()+"',"+
+                    "ringkasan_beban_hutang_lain='"+tbUser.getValueAt(i,1218).toString()+"',"+
+                    "set_resep_per_cara_bayar='"+tbUser.getValueAt(i,1219).toString()+"',"+
+                    "skrining_tolac='"+tbUser.getValueAt(i,1220).toString()+"',"+
+                    "admisi_skoring_tolac='"+tbUser.getValueAt(i,1221).toString()+"'")==true){
                     emptTeks();
                 }
             }         
@@ -6958,7 +6981,12 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                         "satu_sehat_mapping_kptl_tarif_kamar='"+tbUser.getValueAt(barisdicopy,1213).toString()+"',"+
                                         "checklist_kriteria_keluar_isolasi='"+tbUser.getValueAt(barisdicopy,1214).toString()+"',"+
                                         "satu_sehat_tanda_tangan_elektronik='"+tbUser.getValueAt(barisdicopy,1215).toString()+"',"+
-                                        "satu_sehat_kirim_composition='"+tbUser.getValueAt(barisdicopy,1216).toString()+"'");
+                                        "satu_sehat_kirim_composition='"+tbUser.getValueAt(barisdicopy,1216).toString()+"',"+
+                                        "ringkasan_hutang_vendor_inventaris='"+tbUser.getValueAt(barisdicopy,1217).toString()+"',"+
+                                        "ringkasan_beban_hutang_lain='"+tbUser.getValueAt(barisdicopy,1218).toString()+"',"+
+                                        "set_resep_per_cara_bayar='"+tbUser.getValueAt(barisdicopy,1219).toString()+"',"+
+                                        "skrining_tolac='"+tbUser.getValueAt(barisdicopy,1220).toString()+"',"+
+                                        "admisi_skoring_tolac='"+tbUser.getValueAt(barisdicopy,1221).toString()+"'");
                                 }
                                 userdicopy="";
                                 copyhakakses="";
@@ -7298,7 +7326,8 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                             "user.surat_permintaan_second_opinion,user.surat_keterangan_berobat,user.surat_penolakan_resusitasi,user.catatan_observasi_ruang_ok,user.hasil_pemeriksaan_usg_abdomen,"+
                             "user.intervensi_nyeri_farmakologi,user.intervensi_nyeri_nonfarmakologi,user.surat_pengajuan_cuti_pasien,user.checklist_kriteria_masuk_isolasi,user.satu_sehat_mapping_kptl_tindakan_ralan,"+
                             "user.satu_sehat_mapping_kptl_tindakan_ranap,user.satu_sehat_mapping_kptl_tindakan_radiologi,user.satu_sehat_mapping_kptl_tindakan_laborat,user.satu_sehat_mapping_kptl_tindakan_operasi,"+
-                            "user.satu_sehat_mapping_kptl_tarif_kamar,user.checklist_kriteria_keluar_isolasi,user.satu_sehat_tanda_tangan_elektronik,user.satu_sehat_kirim_composition from user order by AES_DECRYPT(user.id_user,'nur')");
+                            "user.satu_sehat_mapping_kptl_tarif_kamar,user.checklist_kriteria_keluar_isolasi,user.satu_sehat_tanda_tangan_elektronik,user.satu_sehat_kirim_composition,"+
+                            "user.ringkasan_hutang_vendor_inventaris,user.ringkasan_beban_hutang_lain,user.set_resep_per_cara_bayar,user.skrining_tolac,user.admisi_skoring_tolac from user order by AES_DECRYPT(user.id_user,'nur')");
                         try {
                             rs=ps.executeQuery();
                             i=0;
@@ -8529,7 +8558,12 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                            rs.getBoolean("satu_sehat_mapping_kptl_tarif_kamar"),
                                            rs.getBoolean("checklist_kriteria_keluar_isolasi"),
                                            rs.getBoolean("satu_sehat_tanda_tangan_elektronik"),
-                                           rs.getBoolean("satu_sehat_kirim_composition")
+                                           rs.getBoolean("satu_sehat_kirim_composition"),
+                                           rs.getBoolean("ringkasan_hutang_vendor_inventaris"),
+                                           rs.getBoolean("ringkasan_beban_hutang_lain"),
+                                           rs.getBoolean("set_resep_per_cara_bayar"),
+                                           rs.getBoolean("skrining_tolac"),
+                                           rs.getBoolean("admisi_skoring_tolac")
                                         });
                                     }   
                                 } catch (Exception e) {
@@ -9748,7 +9782,12 @@ private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                                        rs.getBoolean("satu_sehat_mapping_kptl_tarif_kamar"),
                                        rs.getBoolean("checklist_kriteria_keluar_isolasi"),
                                        rs.getBoolean("satu_sehat_tanda_tangan_elektronik"),
-                                       rs.getBoolean("satu_sehat_kirim_composition")
+                                       rs.getBoolean("satu_sehat_kirim_composition"),
+                                       rs.getBoolean("ringkasan_hutang_vendor_inventaris"),
+                                       rs.getBoolean("ringkasan_beban_hutang_lain"),
+                                       rs.getBoolean("set_resep_per_cara_bayar"),
+                                       rs.getBoolean("skrining_tolac"),
+                                       rs.getBoolean("admisi_skoring_tolac")
                                     });
                                 }                                             
                              }
