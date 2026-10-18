@@ -84,10 +84,10 @@ public class TabPane extends JTabbedPane {
 
         @Override
         protected LayoutManager createLayoutManager() {
-            if (tabPane.getTabLayoutPolicy() == JTabbedPane.SCROLL_TAB_LAYOUT) {
+        //    if (tabPane.getTabLayoutPolicy() == JTabbedPane.SCROLL_TAB_LAYOUT) {
                 return super.createLayoutManager();
-            }
-            return new LayoutTengah();
+        //    }
+        //    return new LayoutTengah();
         }
 
         private class LayoutTengah extends TabbedPaneLayout {
