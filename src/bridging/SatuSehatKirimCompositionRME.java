@@ -638,7 +638,7 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jPopupMenu1 = new widget.PopupMenu();
         ppPilihSemua = new widget.MenuItem();
         ppBersihkan = new widget.MenuItem();
         LoadHTML = new widget.editorpane();
@@ -1488,7 +1488,7 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
     private widget.Label jLabel17;
     private widget.Label jLabel7;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private widget.PopupMenu jPopupMenu1;
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
     private widget.MenuItem ppBersihkan;
@@ -5396,7 +5396,7 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
                     }
 
                     //Status Hamil
-                    if(tbAwalKeperawatanIGD.getValueAt(i,18).toString().equals("-")){
+                    if((!tbAwalKeperawatanIGD.getValueAt(i,17).toString().equals("-"))&&tbAwalKeperawatanIGD.getValueAt(i,18).toString().equals("")){
                         try{
                             headers = new HttpHeaders();
                             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -5459,8 +5459,8 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
                         }
                     }
 
-                    /*//Gravida
-                    if(tbAwalKeperawatanIGD.getValueAt(i,20).toString().equals("")&&tbAwalKeperawatanIGD.getValueAt(i,17).toString().equals("Hamil")){
+                    //Gravida
+                    if(tbAwalKeperawatanIGD.getValueAt(i,20).toString().equals("")&&(!tbAwalKeperawatanIGD.getValueAt(i,19).toString().equals(""))){
                         try{
                             headers = new HttpHeaders();
                             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -5480,8 +5480,15 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
                                             "}" +
                                         "]," +
                                         "\"code\": {" +
+                                            "\"coding\": [" +
+                                                "{" +
+                                                    "\"system\": \"http://loinc.org\"," +
+                                                    "\"code\": \"11996-6\"," +
+                                                    "\"display\": \"[#] Pregnancies\"" +
+                                                "}" +
+                                            "]," +
                                             "\"text\": \"Gravida\"" +
-                                        "}," +
+                                        "},"+
                                         "\"subject\": {" +
                                             "\"reference\": \"Patient/"+idpasien+"\"" +
                                         "}," +
@@ -5517,7 +5524,7 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
                     }
 
                     //Para
-                    if(tbAwalKeperawatanIGD.getValueAt(i,22).toString().equals("")&&tbAwalKeperawatanIGD.getValueAt(i,17).toString().equals("Hamil")){
+                    if(tbAwalKeperawatanIGD.getValueAt(i,22).toString().equals("")&&(!tbAwalKeperawatanIGD.getValueAt(i,21).toString().equals(""))){
                         try{
                             headers = new HttpHeaders();
                             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -5537,6 +5544,13 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
                                             "}" +
                                         "]," +
                                         "\"code\": {" +
+                                            "\"coding\": [" +
+                                                "{" +
+                                                    "\"system\": \"http://loinc.org\"," +
+                                                    "\"code\": \"11977-6\"," +
+                                                    "\"display\": \"[#] Parity\"" +
+                                                "}" +
+                                            "]," +
                                             "\"text\": \"Para\"" +
                                         "}," +
                                         "\"subject\": {" +
@@ -5573,7 +5587,7 @@ public final class SatuSehatKirimCompositionRME extends javax.swing.JDialog {
                         }
                     }
 
-                    //Abortus
+                    /*//Abortus
                     if(tbAwalKeperawatanIGD.getValueAt(i,24).toString().equals("")&&tbAwalKeperawatanIGD.getValueAt(i,17).toString().equals("Hamil")){
                         try{
                             headers = new HttpHeaders();

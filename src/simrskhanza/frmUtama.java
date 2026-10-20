@@ -1235,6 +1235,7 @@ import javax.swing.SwingUtilities;
 import rekammedis.RMAdmisiSkoringTOLAC;
 import rekammedis.RMDataMonitoringTOLAC;
 import rekammedis.RMHasilPersalinanTOLAC;
+import rekammedis.RMReaksiTransfusi;
 
 
 /**
@@ -1297,7 +1298,7 @@ public class frmUtama extends javax.swing.JFrame {
         
         try{    
             if(prop.getProperty("MENUTRANSPARAN").equals("yes")){
-                DlgHome.setOpacity(0.67f);
+                DlgHome.setOpacity(0.70f);
             }     
         }catch(Exception e){            
         } 
@@ -1841,32 +1842,32 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         FlayMenu = new usu.widget.glass.PanelGlass();
         MenuBar = new widget.MenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenu1 = new widget.Menu();
         MnLogin = new widget.MenuItem();
         MnGantiPassword = new widget.MenuItem();
-        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        jSeparator14 = new widget.PopupMenu.Separator();
         MenuKeluar = new widget.MenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenu5 = new widget.Menu();
         MnBelumDatang1 = new widget.MenuItem();
         MnBelumDatang = new widget.MenuItem();
         MnSudahPulang = new widget.MenuItem();
         MnRekapBulanan = new widget.MenuItem();
         MnRekapHadir = new widget.MenuItem();
         MnPengajuanCutiPegawai = new widget.MenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        jMenu6 = new widget.Menu();
         MnRekapBulanan1 = new widget.MenuItem();
         MnRekapBulanan3 = new widget.MenuItem();
         MnRekapBulanan2 = new widget.MenuItem();
         MnRekapBulanan4 = new widget.MenuItem();
-        jSeparator10 = new javax.swing.JPopupMenu.Separator();
-        MnTarif = new javax.swing.JMenu();
+        jSeparator10 = new widget.PopupMenu.Separator();
+        MnTarif = new widget.Menu();
         MnSudahPulang1 = new widget.MenuItem();
         MnSudahPulang3 = new widget.MenuItem();
         MnSudahPulang6 = new widget.MenuItem();
         MnSudahPulang4 = new widget.MenuItem();
         MnSudahPulang2 = new widget.MenuItem();
         MnSudahPulang5 = new widget.MenuItem();
-        MnTarif1 = new javax.swing.JMenu();
+        MnTarif1 = new widget.Menu();
         MnRekapHadir1 = new widget.MenuItem();
         MnInfoBed = new widget.MenuItem();
         MnInfoBed2 = new widget.MenuItem();
@@ -1874,31 +1875,31 @@ public class frmUtama extends javax.swing.JFrame {
         MnInfoBed3 = new widget.MenuItem();
         MnInfoBed5 = new widget.MenuItem();
         MnInfoMobileJKN = new widget.MenuItem();
-        jSeparator15 = new javax.swing.JPopupMenu.Separator();
+        jSeparator15 = new widget.PopupMenu.Separator();
         MnKoleksiPenelitian = new widget.MenuItem();
         MnCariEbook = new widget.MenuItem();
         MnCariInventarisPerpustakaan = new widget.MenuItem();
-        jMenu7 = new javax.swing.JMenu();
+        jMenu7 = new widget.Menu();
         MnAnjungan = new widget.MenuItem();
-        jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        jSeparator12 = new widget.PopupMenu.Separator();
         MnRekapHadir9 = new widget.MenuItem();
         MnRekapHadir3 = new widget.MenuItem();
         MnRekapHadir10 = new widget.MenuItem();
         MnRekapHadir4 = new widget.MenuItem();
         MnInfoBed4 = new widget.MenuItem();
-        MnAntrianFarmasi = new javax.swing.JMenu();
+        MnAntrianFarmasi = new widget.Menu();
         MnRekapHadir5 = new widget.MenuItem();
         MnRekapHadir7 = new widget.MenuItem();
         MnRekapHadir8 = new widget.MenuItem();
         MnRekapHadir11 = new widget.MenuItem();
-        MnAntrianLaborat = new javax.swing.JMenu();
+        MnAntrianLaborat = new widget.Menu();
         MnInfoLaborat = new widget.MenuItem();
         MnInfoLaborat1 = new widget.MenuItem();
         MnInfoLaborat3 = new widget.MenuItem();
         MnInfoLaborat2 = new widget.MenuItem();
-        jSeparator13 = new javax.swing.JPopupMenu.Separator();
+        jSeparator13 = new widget.PopupMenu.Separator();
         MnRekapHadir6 = new widget.MenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        jMenu4 = new widget.Menu();
 
         DlgLogin.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         DlgLogin.setName("DlgLogin"); // NOI18N
@@ -23702,6 +23703,19 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getDefaultCursor());
     }
     
+    private void btnLaporanReaksiTranfusiActionPerformed(java.awt.event.ActionEvent evt) {
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMReaksiTransfusi aplikasi=new RMReaksiTransfusi(this,false);
+        aplikasi.isCek();
+        aplikasi.emptTeks();
+        aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }
+    
     /**
     * @param args the command line arguments
     */
@@ -23731,8 +23745,8 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.MenuBar MenuBar;
     private widget.MenuItem MenuKeluar;
     private widget.MenuItem MnAnjungan;
-    private javax.swing.JMenu MnAntrianFarmasi;
-    private javax.swing.JMenu MnAntrianLaborat;
+    private widget.Menu MnAntrianFarmasi;
+    private widget.Menu MnAntrianLaborat;
     private widget.MenuItem MnBelumDatang;
     private widget.MenuItem MnBelumDatang1;
     private widget.MenuItem MnCariEbook;
@@ -23775,8 +23789,8 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.MenuItem MnSudahPulang4;
     private widget.MenuItem MnSudahPulang5;
     private widget.MenuItem MnSudahPulang6;
-    private javax.swing.JMenu MnTarif;
-    private javax.swing.JMenu MnTarif1;
+    private widget.Menu MnTarif;
+    private widget.Menu MnTarif1;
     private javax.swing.JPanel PanelUtama;
     private usu.widget.glass.PanelGlass PanelWall;
     private widget.panelGlass Panelmenu;
@@ -24255,17 +24269,17 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
+    private widget.Menu jMenu1;
+    private widget.Menu jMenu4;
+    private widget.Menu jMenu5;
+    private widget.Menu jMenu6;
+    private widget.Menu jMenu7;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator10;
-    private javax.swing.JPopupMenu.Separator jSeparator12;
-    private javax.swing.JPopupMenu.Separator jSeparator13;
-    private javax.swing.JPopupMenu.Separator jSeparator14;
-    private javax.swing.JPopupMenu.Separator jSeparator15;
+    private widget.PopupMenu.Separator jSeparator10;
+    private widget.PopupMenu.Separator jSeparator12;
+    private widget.PopupMenu.Separator jSeparator13;
+    private widget.PopupMenu.Separator jSeparator14;
+    private widget.PopupMenu.Separator jSeparator15;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -24422,7 +24436,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             btnHasilUSGAbdomen,btnIntervensiNyeriFarmakologi,btnIntervensiNyeriNonFarmakologi,btnSuratPengajuanCutiPerawatan,btnChecklistKriteriaMasukIsolasi,btnMapingTarifTindakanRalanKPTLSatuSehat,
             btnMapingTarifTindakanRanapKPTLSatuSehat,btnMapingTarifTindakanRadiologiKPTLSatuSehat,btnMapingTarifTindakanLabKPTLSatuSehat,btnMapingTarifTindakanOperasiKPTLSatuSehat,btnMapingTarifKamarKPTLSatuSehat,
             btnChecklistKriteriaKeluarIsolasi,btnBridgingTTESatuSehat,btnBridgingCompositionRMESatuSehat,btnRingkasanHutangVendorAsetInventaris,btnRingkasanBebanHutangLain,btnSetResepPerCaraBayar,
-            btnSkriningTOLAC,btnAdmisiSkoringTOLAC,btnMonitoringTOLAC,btnHasilPersalinanTOLAC;
+            btnSkriningTOLAC,btnAdmisiSkoringTOLAC,btnMonitoringTOLAC,btnHasilPersalinanTOLAC,btnLaporanReaksiTranfusi;
     
     public void isWall(){
         try{            
@@ -28805,6 +28819,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getmonitoring_reaksi_tranfusi()==true){
                 Panelmenu.add(btnMonitoringReaksiTranfusi);
+                jmlmenu++;
+            }
+            
+            if(akses.getlaporan_reaksi_transfusi()==true){
+                Panelmenu.add(btnLaporanReaksiTranfusi);
                 jmlmenu++;
             }
             
@@ -34873,6 +34892,11 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         
         if(akses.getmonitoring_reaksi_tranfusi()==true){
             Panelmenu.add(btnMonitoringReaksiTranfusi);
+            jmlmenu++;
+        }
+        
+        if(akses.getlaporan_reaksi_transfusi()==true){
+            Panelmenu.add(btnLaporanReaksiTranfusi);
             jmlmenu++;
         }
         
@@ -42629,6 +42653,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
                 Panelmenu.add(btnMonitoringReaksiTranfusi);
                 jmlmenu++;
             }                
+        }
+        
+        if(akses.getlaporan_reaksi_transfusi()==true){
+            if(btnLaporanReaksiTranfusi.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnLaporanReaksiTranfusi);
+                jmlmenu++;
+            } 
         }
         
         if(akses.getpemantauan_pews_anak()==true){
@@ -51286,5 +51317,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         btnHasilPersalinanTOLAC.setName("btnHasilPersalinanTOLAC"); 
         btnHasilPersalinanTOLAC.setPreferredSize(new java.awt.Dimension(200, 90));
         btnHasilPersalinanTOLAC.addActionListener(this::btnHasilPersalinanTOLACActionPerformed);
+        
+        btnLaporanReaksiTranfusi = new widget.ButtonBig();
+        btnLaporanReaksiTranfusi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/blood-transfusion_1225585.png")));
+        btnLaporanReaksiTranfusi.setText("Laporan Reaksi Tranfusi");
+        btnLaporanReaksiTranfusi.setIconTextGap(0);
+        btnLaporanReaksiTranfusi.setName("btnLaporanReaksiTranfusi"); 
+        btnLaporanReaksiTranfusi.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnLaporanReaksiTranfusi.addActionListener(this::btnLaporanReaksiTranfusiActionPerformed);
     }
 }
