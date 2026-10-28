@@ -28,6 +28,7 @@ import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.Document;
@@ -50,7 +51,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     private PreparedStatement ps;
     private ResultSet rs;   
     private int i=0;
-    private String link="",json="",idpasien="",idpraktisi="";
+    private String link="",json="",idpasien="",idpraktisi="",authorDisplay="";
     private ApiSatuSehat api=new ApiSatuSehat();
     private HttpHeaders headers ;
     private HttpEntity requestEntity;
@@ -58,9 +59,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     private JsonNode root;
     private JsonNode response;
     private SatuSehatCekNIK cekViaSatuSehat=new SatuSehatCekNIK();  
-    private StringBuilder htmlContent;   
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private volatile boolean ceksukses = false; 
+    private StringBuilder htmlContent;    
     
     /** Creates new form DlgKamar
      * @param parent
@@ -135,6 +134,29 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
         
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
         
+        if(koneksiDB.CARICEPAT().equals("aktif")){
+            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        tampil();
+                    }
+                }
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        tampil();
+                    }
+                }
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        tampil();
+                    }
+                }
+            });
+        } 
+        
         try {
             link=koneksiDB.URLFHIRSATUSEHAT();
         } catch (Exception e) {
@@ -195,6 +217,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
         jLabel16 = new widget.Label();
         TCari = new widget.TextBox();
         BtnCari = new widget.Button();
+        StatusKirim1 = new widget.ComboBox();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -238,11 +261,6 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
         setIconImages(null);
         setUndecorated(true);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pengiriman Data Care Plan Satu Sehat ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -365,7 +383,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
         jLabel15.setPreferredSize(new java.awt.Dimension(85, 23));
         panelGlass9.add(jLabel15);
 
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-02-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2024" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -378,7 +396,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
         jLabel17.setPreferredSize(new java.awt.Dimension(24, 23));
         panelGlass9.add(jLabel17);
 
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-02-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2024" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -415,6 +433,16 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
             }
         });
         panelGlass9.add(BtnCari);
+
+        StatusKirim1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semua", "Belum Dikirim", "Sudah Dikirim" }));
+        StatusKirim1.setMinimumSize(new java.awt.Dimension(150, 20));
+        StatusKirim1.setName("StatusKirim1"); // NOI18N
+        StatusKirim1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusKirimActionPerformed(evt);
+            }
+        });
+        panelGlass9.add(StatusKirim1);
 
         jPanel3.add(panelGlass9, java.awt.BorderLayout.PAGE_START);
 
@@ -531,7 +559,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        runBackground(() ->tampil());
+        tampil();
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnCariActionPerformed
 
@@ -544,21 +572,30 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnCariKeyPressed
 
     private void BtnKirimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKirimActionPerformed
+        java.util.List<String> dilewati=new java.util.ArrayList<>();
         for(i=0;i<tbObat.getRowCount();i++){
             if(tbObat.getValueAt(i,0).toString().equals("true")&&(!tbObat.getValueAt(i,5).toString().equals(""))&&(!tbObat.getValueAt(i,6).toString().equals(""))&&(!tbObat.getValueAt(i,9).toString().equals(""))&&tbObat.getValueAt(i,11).toString().equals("")){
                 try {
                     idpraktisi=cekViaSatuSehat.tampilIDParktisi(tbObat.getValueAt(i,9).toString());
                     idpasien=cekViaSatuSehat.tampilIDPasien(tbObat.getValueAt(i,5).toString());
+                    // Petugas penulis belum terdaftar Practitioner di SatuSehat -> author kosong
+                    // "Practitioner/" ditolak 400. Baris dilewati & dilaporkan (tanpa fallback).
+                    authorDisplay=tbObat.getValueAt(i,8).toString();
+                    if(idpraktisi.trim().isEmpty()||idpasien.trim().isEmpty()){
+                        dilewati.add(tbObat.getValueAt(i,2).toString()+" - "+tbObat.getValueAt(i,8).toString()
+                            +(idpasien.trim().isEmpty()?" (pasien belum terdaftar SatuSehat)":" (petugas belum terdaftar Practitioner SatuSehat)"));
+                        continue;
+                    }
                     try{
                         headers = new HttpHeaders();
                         headers.setContentType(MediaType.APPLICATION_JSON);
                         headers.add("Authorization", "Bearer "+api.TokenSatuSehat());
                         json = "{" +
                                     "\"resourceType\" : \"CarePlan\"," +
-                                    "\"identifier\" : {" +
+                                    "\"identifier\" : [{" +
                                         "\"system\" : \"http://sys-ids.kemkes.go.id/careplan/"+koneksiDB.IDSATUSEHAT()+"\"," +
                                         "\"value\" : \""+tbObat.getValueAt(i,2).toString()+"\"" +
-                                    "}," +
+                                    "}]," +
                                     "\"title\" : \"Instruksi Medik dan Keperawatan Pasien\"," +
                                     "\"status\" : \"active\"," +
                                     (tbObat.getValueAt(i,12).toString().equals("Ralan")?
@@ -586,10 +623,10 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                                         "],"
                                     )+
                                     "\"intent\" : \"plan\"," +
-                                    "\"description\" : \""+tbObat.getValueAt(i,7).toString().replaceAll("(\r\n|\r|\n|\n\r)","<br>").replaceAll("\t", " ")+"\"," +
+                                    "\"description\" : \""+jsonEscape(tbObat.getValueAt(i,7).toString().replaceAll("(\r\n|\r|\n|\n\r)","<br>").replaceAll("\t", " "))+"\"," +
                                     "\"subject\" : {" +
                                         "\"reference\" : \"Patient/"+idpasien+"\"," +
-                                        "\"display\" : \""+tbObat.getValueAt(i,4).toString()+"\"" +
+                                        "\"display\" : \""+jsonEscape(tbObat.getValueAt(i,4).toString())+"\"" +
                                     "}," +
                                     "\"encounter\" : {" +
                                         "\"reference\" : \"Encounter/"+tbObat.getValueAt(i,6).toString()+"\","+
@@ -598,7 +635,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                                     "\"created\" : \""+tbObat.getValueAt(i,10).toString().replaceAll(" ","T")+"+07:00\"," +
                                     "\"author\" : {" +
                                         "\"reference\" : \"Practitioner/"+idpraktisi+"\"," +
-                                        "\"display\" : \""+tbObat.getValueAt(i,8).toString()+"\"" +
+                                        "\"display\" : \""+jsonEscape(authorDisplay)+"\"" +
                                     "}" +
                                 "}";
                         System.out.println("URL : "+link+"/CarePlan");
@@ -617,12 +654,16 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                             }
                         }
                     }catch(Exception e){
-                        System.out.println("Notifikasi Bridging : "+e);
+                        System.out.println("Notifikasi Bridging : "+e+(e instanceof org.springframework.web.client.HttpStatusCodeException?" "+((org.springframework.web.client.HttpStatusCodeException)e).getResponseBodyAsString():""));
                     }
                 } catch (Exception e) {
                     System.out.println("Notifikasi : "+e);
                 }
             }
+        }
+        if(!dilewati.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Tidak dikirim ("+dilewati.size()+" data), daftarkan dulu tenaga kesehatan/pasiennya di SatuSehat:\n- "
+                +String.join("\n- ",dilewati.subList(0,Math.min(15,dilewati.size())))+(dilewati.size()>15?"\n...":""));
         }
     }//GEN-LAST:event_BtnKirimActionPerformed
 
@@ -639,11 +680,20 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     }//GEN-LAST:event_ppBersihkanActionPerformed
 
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
+        java.util.List<String> dilewati=new java.util.ArrayList<>();
         for(i=0;i<tbObat.getRowCount();i++){
             if(tbObat.getValueAt(i,0).toString().equals("true")&&(!tbObat.getValueAt(i,5).toString().equals(""))&&(!tbObat.getValueAt(i,6).toString().equals(""))&&(!tbObat.getValueAt(i,9).toString().equals(""))&&(!tbObat.getValueAt(i,11).toString().equals(""))){
                 try {
                     idpraktisi=cekViaSatuSehat.tampilIDParktisi(tbObat.getValueAt(i,9).toString());
                     idpasien=cekViaSatuSehat.tampilIDPasien(tbObat.getValueAt(i,5).toString());
+                    // Petugas penulis belum terdaftar Practitioner di SatuSehat -> author kosong
+                    // "Practitioner/" ditolak 400. Baris dilewati & dilaporkan (tanpa fallback).
+                    authorDisplay=tbObat.getValueAt(i,8).toString();
+                    if(idpraktisi.trim().isEmpty()||idpasien.trim().isEmpty()){
+                        dilewati.add(tbObat.getValueAt(i,2).toString()+" - "+tbObat.getValueAt(i,8).toString()
+                            +(idpasien.trim().isEmpty()?" (pasien belum terdaftar SatuSehat)":" (petugas belum terdaftar Practitioner SatuSehat)"));
+                        continue;
+                    }
                     try{
                         headers = new HttpHeaders();
                         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -651,10 +701,10 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                         json = "{" +
                                     "\"resourceType\" : \"CarePlan\"," +
                                     "\"id\": \""+tbObat.getValueAt(i,11).toString()+"\"," +
-                                    "\"identifier\" : {" +
+                                    "\"identifier\" : [{" +
                                         "\"system\" : \"http://sys-ids.kemkes.go.id/careplan/"+koneksiDB.IDSATUSEHAT()+"\"," +
                                         "\"value\" : \""+tbObat.getValueAt(i,2).toString()+"\"" +
-                                    "}," +
+                                    "}]," +
                                     "\"title\" : \"Instruksi Medik dan Keperawatan Pasien\"," +
                                     "\"status\" : \"active\"," +
                                     (tbObat.getValueAt(i,12).toString().equals("Ralan")?
@@ -682,10 +732,10 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                                         "],"
                                     )+
                                     "\"intent\" : \"plan\"," +
-                                    "\"description\" : \""+tbObat.getValueAt(i,7).toString().replaceAll("(\r\n|\r|\n|\n\r)","<br>").replaceAll("\t", " ")+"\"," +
+                                    "\"description\" : \""+jsonEscape(tbObat.getValueAt(i,7).toString().replaceAll("(\r\n|\r|\n|\n\r)","<br>").replaceAll("\t", " "))+"\"," +
                                     "\"subject\" : {" +
                                         "\"reference\" : \"Patient/"+idpasien+"\"," +
-                                        "\"display\" : \""+tbObat.getValueAt(i,4).toString()+"\"" +
+                                        "\"display\" : \""+jsonEscape(tbObat.getValueAt(i,4).toString())+"\"" +
                                     "}," +
                                     "\"encounter\" : {" +
                                         "\"reference\" : \"Encounter/"+tbObat.getValueAt(i,6).toString()+"\","+
@@ -694,7 +744,7 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                                     "\"created\" : \""+tbObat.getValueAt(i,10).toString().replaceAll(" ","T")+"+07:00\"," +
                                     "\"author\" : {" +
                                         "\"reference\" : \"Practitioner/"+idpraktisi+"\"," +
-                                        "\"display\" : \""+tbObat.getValueAt(i,8).toString()+"\"" +
+                                        "\"display\" : \""+jsonEscape(authorDisplay)+"\"" +
                                     "}" +
                                 "}";
                         System.out.println("URL : "+link+"/CarePlan/"+tbObat.getValueAt(i,11).toString());
@@ -704,53 +754,32 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                         System.out.println("Result JSON : "+json);
                         tbObat.setValueAt(false,i,0);
                     }catch(Exception e){
-                        System.out.println("Notifikasi Bridging : "+e);
+                        System.out.println("Notifikasi Bridging : "+e+(e instanceof org.springframework.web.client.HttpStatusCodeException?" "+((org.springframework.web.client.HttpStatusCodeException)e).getResponseBodyAsString():""));
                     }
                 } catch (Exception e) {
                     System.out.println("Notifikasi : "+e);
                 }
             }
         }
+        if(!dilewati.isEmpty()){
+            JOptionPane.showMessageDialog(null,"Tidak dikirim ("+dilewati.size()+" data), daftarkan dulu tenaga kesehatan/pasiennya di SatuSehat:\n- "
+                +String.join("\n- ",dilewati.subList(0,Math.min(15,dilewati.size())))+(dilewati.size()>15?"\n...":""));
+        }
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
     private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
         TCari.setText("");
-        runBackground(() ->tampil());
+        tampil();
     }//GEN-LAST:event_BtnAllActionPerformed
 
     private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_SPACE){
             TCari.setText("");
-            runBackground(() ->tampil());
+            tampil();
         }else{
             Valid.pindah(evt, BtnPrint, BtnKeluar);
         }
     }//GEN-LAST:event_BtnAllKeyPressed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(koneksiDB.CARICEPAT().equals("aktif")){
-            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        runBackground(() ->tampil());
-                    }
-                }
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        runBackground(() ->tampil());
-                    }
-                }
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        runBackground(() ->tampil());
-                    }
-                }
-            });
-        } 
-    }//GEN-LAST:event_formWindowOpened
 
     /**
     * @param args the command line arguments
@@ -780,6 +809,8 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     private widget.Label LCount;
     private widget.editorpane LoadHTML;
     private widget.ScrollPane Scroll;
+    private widget.ComboBox StatusKirim;
+    private widget.ComboBox StatusKirim1;
     private widget.TextBox TCari;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel15;
@@ -790,10 +821,14 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     private widget.PopupMenu jPopupMenu1;
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
-    private widget.MenuItem ppBersihkan;
-    private widget.MenuItem ppPilihSemua;
+    private  widget.MenuItem ppBersihkan;
+    private  widget.MenuItem ppPilihSemua;
     private widget.Table tbObat;
     // End of variables declaration//GEN-END:variables
+    
+    private void StatusKirimActionPerformed(java.awt.event.ActionEvent evt) {
+        tampil();
+    }
     
     private void tampil() {
         Valid.tabelKosong(tabMode);
@@ -804,14 +839,17 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                    "pegawai.nama,pegawai.no_ktp as ktppraktisi,pemeriksaan_ralan.tgl_perawatan,pemeriksaan_ralan.jam_rawat,"+
                    "ifnull(satu_sehat_careplan.id_careplan,'') as satu_sehat_careplan "+
                    "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                   "inner join nota_jalan on nota_jalan.no_rawat=reg_periksa.no_rawat "+
                    "inner join satu_sehat_encounter on satu_sehat_encounter.no_rawat=reg_periksa.no_rawat "+
                    "inner join pemeriksaan_ralan on pemeriksaan_ralan.no_rawat=reg_periksa.no_rawat "+
                    "inner join pegawai on pemeriksaan_ralan.nip=pegawai.nik "+
                    "left join satu_sehat_careplan on satu_sehat_careplan.no_rawat=pemeriksaan_ralan.no_rawat "+
                    "and satu_sehat_careplan.tgl_perawatan=pemeriksaan_ralan.tgl_perawatan and satu_sehat_careplan.jam_rawat=pemeriksaan_ralan.jam_rawat "+
-                   "where pemeriksaan_ralan.rtl<>'' and reg_periksa.tgl_registrasi between ? and ? "+
+                   "where pemeriksaan_ralan.rtl<>'' and nota_jalan.tanggal between ? and ? "+
                    (TCari.getText().equals("")?"":"and (reg_periksa.no_rawat like ? or reg_periksa.no_rkm_medis like ? or "+
-                   "pasien.nm_pasien like ? or pasien.no_ktp like ? or pegawai.no_ktp like ? or pegawai.nama like ?) "));
+                   "pasien.nm_pasien like ? or pasien.no_ktp like ? or pegawai.no_ktp like ? or pegawai.nama like ?) ")+
+                   (StatusKirim1.getSelectedItem().toString().equals("Belum Dikirim") ? " and ifnull(satu_sehat_careplan.id_careplan,'') = ''" : "") +
+                   (StatusKirim1.getSelectedItem().toString().equals("Sudah Dikirim") ? " and ifnull(satu_sehat_careplan.id_careplan,'') != ''" : ""));
             try {
                 ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+""));
                 ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+""));
@@ -848,12 +886,13 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
                    "pegawai.nama,pegawai.no_ktp as ktppraktisi,pemeriksaan_ranap.tgl_perawatan,pemeriksaan_ranap.jam_rawat,"+
                    "ifnull(satu_sehat_careplan.id_careplan,'') as satu_sehat_careplan "+
                    "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                   "inner join nota_inap on nota_inap.no_rawat=reg_periksa.no_rawat "+
                    "inner join satu_sehat_encounter on satu_sehat_encounter.no_rawat=reg_periksa.no_rawat "+
                    "inner join pemeriksaan_ranap on pemeriksaan_ranap.no_rawat=reg_periksa.no_rawat "+
                    "inner join pegawai on pemeriksaan_ranap.nip=pegawai.nik "+
                    "left join satu_sehat_careplan on satu_sehat_careplan.no_rawat=pemeriksaan_ranap.no_rawat "+
                    "and satu_sehat_careplan.tgl_perawatan=pemeriksaan_ranap.tgl_perawatan and satu_sehat_careplan.jam_rawat=pemeriksaan_ranap.jam_rawat "+
-                   "where pemeriksaan_ranap.rtl<>'' and reg_periksa.tgl_registrasi between ? and ? "+
+                   "where pemeriksaan_ranap.rtl<>'' and nota_inap.tanggal between ? and ? "+
                    (TCari.getText().equals("")?"":"and (reg_periksa.no_rawat like ? or reg_periksa.no_rkm_medis like ? or "+
                    "pasien.nm_pasien like ? or pasien.no_ktp like ? or pegawai.no_ktp like ? or pegawai.nama like ?) "));
             try {
@@ -900,36 +939,22 @@ public final class SatuSehatKirimCarePlan extends javax.swing.JDialog {
     public JTable getTable(){
         return tbObat;
     }
-    
-    private void runBackground(Runnable task) {
-        if (ceksukses) return;
-        if (executor.isShutdown() || executor.isTerminated()) return;
-        if (!isDisplayable()) return;
 
-        ceksukses = true;
-        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
-        try {
-            executor.submit(() -> {
-                try {
-                    task.run();
-                } finally {
-                    ceksukses = false;
-                    SwingUtilities.invokeLater(() -> {
-                        if (isDisplayable()) {
-                            setCursor(Cursor.getDefaultCursor());
-                        }
-                    });
-                }
-            });
-        } catch (RejectedExecutionException ex) {
-            ceksukses = false;
+    private static String jsonEscape(String s) {
+        if (s == null) return "";
+        StringBuilder sb = new StringBuilder(s.length() + 8);
+        for (int idx = 0; idx < s.length(); idx++) {
+            char c = s.charAt(idx);
+            switch (c) {
+                case '"':  sb.append("\\\""); break;
+                case '\\': sb.append("\\\\"); break;
+                case '\n': sb.append("\\n"); break;
+                case '\r': sb.append("\\r"); break;
+                case '\t': sb.append("\\t"); break;
+                default:
+                    if (c < 0x20) sb.append(String.format("\\u%04x", (int) c)); else sb.append(c);
+            }
         }
-    }
-    
-    @Override
-    public void dispose() {
-        executor.shutdownNow();
-        super.dispose();
+        return sb.toString();
     }
 }
