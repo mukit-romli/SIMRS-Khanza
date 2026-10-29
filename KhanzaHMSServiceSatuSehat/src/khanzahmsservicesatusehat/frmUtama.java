@@ -26,6 +26,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
 
 /**
  *
@@ -59,7 +61,7 @@ public class frmUtama extends javax.swing.JFrame {
             System.out.println("Notif : "+e);
         }
         
-        this.setSize(490,340);
+        setSize(600,340);
         
         date = new Date();  
         Tanggal1.setText(tanggalFormat.format(date)); 
@@ -85,6 +87,7 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Tanggal2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +117,14 @@ public class frmUtama extends javax.swing.JFrame {
         jLabel2.setPreferredSize(new java.awt.Dimension(30, 23));
         jPanel1.add(jLabel2);
 
+        jButton2.setText("Kirim RAD Manual");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2);
+
         jButton1.setText("Keluar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +141,10 @@ public class frmUtama extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        kirimdicomrouter();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +187,7 @@ public class frmUtama extends javax.swing.JFrame {
     private javax.swing.JTextField Tanggal2;
     private javax.swing.JTextArea TeksArea;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -4814,7 +4830,7 @@ public class frmUtama extends javax.swing.JFrame {
                                             "\"identifier\": [" +
                                                 "{" +
                                                     "\"system\": \"http://sys-ids.kemkes.go.id/acsn/"+koneksiDB.IDSATUSEHAT()+"\"," +
-                                                    "\"value\": \""+rs.getString("noorder").toString().replaceAll("PR","")+rs.getString("kd_jenis_prw")+"\"" +
+                                                    "\"value\": \""+rs.getString("noorder")+"\"" +
                                                 "}" +
                                             "]," +
                                             "\"status\": \"active\"," +
@@ -8833,35 +8849,264 @@ public class frmUtama extends javax.swing.JFrame {
         }
     }
     
-    private void kirimdicomrouter() {
-        ApiOrthanc orthanc=new ApiOrthanc();
-        try{
-            ps=koneksi.prepareStatement(
-                   "select reg_periksa.no_rkm_medis from periksa_radiologi inner join reg_periksa on reg_periksa.no_rawat=periksa_radiologi.no_rawat where periksa_radiologi.tgl_periksa between ? and ? "
-            );
-            try {
-                ps.setString(1,Tanggal1.getText());
-                ps.setString(2,Tanggal2.getText());
-                rs=ps.executeQuery();
-                while(rs.next()){
-                    root=orthanc.AmbilSeries(rs.getString(1),Tanggal1.getText().replaceAll("-",""),Tanggal2.getText().replaceAll("-",""));
-                    for(JsonNode list:root){
-                         orthanc.kirimKeModality(list.path("ID").asText());       
-                    }
-                }
-            } catch (Exception ex) {
-                System.out.println("Notif : "+ex);
-            } finally{
-                if(rs!=null){
-                    rs.close();
-                }
-                if(ps!=null){
-                    ps.close();
-                }
-                root = null;
-            }
-        }catch(Exception ez){
-            System.out.println("Notifikasi : "+ez);
+private void kirimdicomrouter() {
+    System.out.println("=== SERVICE DICOM ROUTER DIMULAI ===");
+    try {
+        ps = koneksi.prepareStatement(
+            "select distinct reg_periksa.no_rkm_medis,permintaan_radiologi.noorder," +
+            "permintaan_pemeriksaan_radiologi.kd_jenis_prw,satu_sehat_servicerequest_radiologi.id_servicerequest," +
+            "permintaan_radiologi.tgl_permintaan from reg_periksa " +
+            "inner join permintaan_radiologi on permintaan_radiologi.no_rawat=reg_periksa.no_rawat " +
+            "inner join permintaan_pemeriksaan_radiologi on permintaan_pemeriksaan_radiologi.noorder=permintaan_radiologi.noorder " +
+            "inner join satu_sehat_servicerequest_radiologi on satu_sehat_servicerequest_radiologi.noorder=permintaan_pemeriksaan_radiologi.noorder " +
+            "and satu_sehat_servicerequest_radiologi.kd_jenis_prw=permintaan_pemeriksaan_radiologi.kd_jenis_prw " +
+            "left join satu_sehat_imagingstudy_radiologi on satu_sehat_imagingstudy_radiologi.noorder=permintaan_pemeriksaan_radiologi.noorder " +
+            "and satu_sehat_imagingstudy_radiologi.kd_jenis_prw=permintaan_pemeriksaan_radiologi.kd_jenis_prw " +
+            "where date_format(permintaan_radiologi.tgl_permintaan,'%Y-%m-%d') between ? and ? " +
+            "and ifnull(satu_sehat_imagingstudy_radiologi.id_imaging,'')=''");
+        ps.setString(1, Tanggal1.getText());
+        ps.setString(2, Tanggal2.getText());
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            prosesKirimRadiologi(
+                rs.getString("no_rkm_medis"),
+                rs.getString("noorder"),
+                rs.getString("kd_jenis_prw"),
+                rs.getString("id_servicerequest"),
+                rs.getString("tgl_permintaan"));
         }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    } finally {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+        } catch (Exception e) {}
     }
+    System.out.println("=== SERVICE DICOM ROUTER SELESAI ===");
+}
+  
+  private boolean prosesKirimRadiologi(String noRM, String accessionNumber, String kdJenisPrw, String idServiceRequest, String tanggalPermintaan) {
+    try {
+        String queryFind;
+        System.out.println("======================================");
+        System.out.println("Mulai Kirim Radiologi");
+        System.out.println("No RM      : " + noRM);
+        System.out.println("No Order   : " + accessionNumber);
+        System.out.println("======================================");
+
+        ApiOrthanc apiOrthanc = new ApiOrthanc();
+        String baseOrthanc = koneksiDB.URLORTHANC() + ":" + koneksiDB.PORTORTHANC();
+
+        HttpHeaders orthancHeaders = new HttpHeaders();
+        orthancHeaders.setContentType(MediaType.APPLICATION_JSON);
+        orthancHeaders.add("Authorization", "Basic " + apiOrthanc.Auth());
+
+        // Parse tanggal ke format DICOM
+        String tglPermintaanDicom = "";
+        try {
+            SimpleDateFormat sdfAsal = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdfDicom = new SimpleDateFormat("yyyyMMdd");
+            Date tglParsed = sdfAsal.parse(tanggalPermintaan.split(" ")[0]);
+            tglPermintaanDicom = sdfDicom.format(tglParsed);
+        } catch (Exception ex) {
+            System.out.println("Gagal Parse Tanggal : " + ex.getMessage());
+        }
+
+        // 1. Cari study di Orthanc
+        if (!tglPermintaanDicom.equals("")) {
+            queryFind = "{\"PatientID\":\"" + noRM + "\",\"StudyDate\":\"" + tglPermintaanDicom + "\"}";
+        } else {
+            queryFind = "{\"PatientID\":\"" + noRM + "\"}";
+        }
+        String jsonFind = "{\"Level\":\"Study\",\"Expand\":true,\"Query\":" + queryFind + "}";
+        HttpEntity findEntity = new HttpEntity(jsonFind, (MultiValueMap) orthancHeaders);
+        String hasilFind = apiOrthanc.getRest().exchange(baseOrthanc + "/tools/find", HttpMethod.POST, findEntity, String.class).getBody();
+        System.out.println("Find by No.RM [" + noRM + "] + StudyDate [" + tglPermintaanDicom + "] Result : " + hasilFind);
+
+        JsonNode rootFind = mapper.readTree(hasilFind);
+
+        // Fallback tanpa filter tanggal
+        if (rootFind.size() == 0 && !tglPermintaanDicom.equals("")) {
+            System.out.println("Tidak ditemukan dengan filter tanggal, coba ulang tanpa filter tanggal...");
+            String jsonFindFallback = "{\"Level\":\"Study\",\"Expand\":true,\"Query\":{\"PatientID\":\"" + noRM + "\"}}";
+            HttpEntity findFallbackEntity = new HttpEntity(jsonFindFallback, (MultiValueMap) orthancHeaders);
+            hasilFind = apiOrthanc.getRest().exchange(baseOrthanc + "/tools/find", HttpMethod.POST, findFallbackEntity, String.class).getBody();
+            rootFind = mapper.readTree(hasilFind);
+        }
+
+        if (rootFind.size() == 0) {
+            System.out.println("Study Orthanc tidak ditemukan : " + noRM);
+            return false;
+        }
+
+        // 2. Pilih study (prioritas yang AccessionNumber kosong)
+        String studyId = "";
+        String accessionSaatIni = "";
+        for (JsonNode study : rootFind) {
+            String acc = study.path("MainDicomTags").path("AccessionNumber").asText();
+            if (acc.trim().equals("")) {
+                studyId = study.path("ID").asText();
+                accessionSaatIni = acc;
+                break;
+            }
+        }
+        if (studyId.equals("")) {
+            studyId = rootFind.get(0).path("ID").asText();
+            accessionSaatIni = rootFind.get(0).path("MainDicomTags").path("AccessionNumber").asText();
+        }
+        if (studyId.equals("")) {
+            System.out.println("Study ID kosong");
+            return false;
+        }
+        System.out.println("Study ditemukan | ID: " + studyId + " | AccessionNumber saat ini: [" + accessionSaatIni + "]");
+
+        // 3. Cek label (path SUDAH DIPERBAIKI pakai studyId)
+        try {
+            HttpEntity labelEntity = new HttpEntity((MultiValueMap) orthancHeaders);
+            String labels = apiOrthanc.getRest().exchange(
+                    baseOrthanc + "/studies/" + studyId + "/labels",
+                    HttpMethod.GET, labelEntity, String.class).getBody();
+            JsonNode labelRoot = mapper.readTree(labels);
+            for (JsonNode lbl : labelRoot) {
+                if ("SatuSehat-Terkirim".equals(lbl.asText())) {
+                    System.out.println(accessionNumber + " sudah memiliki label SatuSehat-Terkirim, skip.");
+                    return true;
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Gagal cek label : " + ex.getMessage());
+        }
+
+        // 4. Update AccessionNumber jika kosong
+        if (accessionSaatIni.trim().equals("")) {
+            System.out.println("AccessionNumber kosong, auto-set ke: " + accessionNumber);
+            String studyIdBaru = apiOrthanc.UbahAccession(studyId, accessionNumber);
+            if (studyIdBaru == null) {
+                System.out.println("Gagal update AccessionNumber, skip baris: " + accessionNumber);
+                return false;
+            }
+            studyId = studyIdBaru;
+            System.out.println("Study ID setelah update Accession: " + studyId);
+        } else {
+            System.out.println("AccessionNumber sudah ada [" + accessionSaatIni + "], tidak perlu update.");
+        }
+
+        // 5. Kirim ke DCMROUTER
+        boolean terkirim = apiOrthanc.kirimKeModality(studyId);
+        if (!terkirim) {
+            System.out.println("Gagal kirim ke DCMROUTER");
+            return false;
+        }
+        System.out.println("Berhasil kirim ke DCMROUTER");
+
+        // 6. Polling ImagingStudy dari SatuSehat
+        Thread.sleep(15000L);
+
+        headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Authorization", "Bearer " + api.TokenSatuSehat());
+        HttpEntity queryEntity = new HttpEntity((MultiValueMap) headers);
+
+        // ✅ FIX Bug #6: identifier pakai accessionNumber (sama dengan manual)
+        String urlQuery = link + "/ImagingStudy?identifier=" + accessionNumber;
+        System.out.println("Query ImagingStudy URL: " + urlQuery);
+
+        String idImaging = "";
+        String statusImaging = "";
+        int maxRetry = 3;
+        int retryCount = 0;
+        int waitSeconds = 5;
+
+        while (idImaging.equals("") && retryCount < maxRetry) {
+            retryCount++;
+            System.out.println("Polling ke-" + retryCount + " dari " + maxRetry + "...");
+            Thread.sleep(waitSeconds * 1000);
+
+            try {
+                String hasilQuery = api.getRest().exchange(urlQuery, HttpMethod.GET, queryEntity, String.class).getBody();
+                System.out.println("Query ImagingStudy Result: " + hasilQuery);
+
+                JsonNode queryRoot = mapper.readTree(hasilQuery);
+                int total = queryRoot.path("total").asInt(0);
+
+                if (total > 0) {
+                    for (JsonNode entry : queryRoot.path("entry")) {
+                        String tempId = entry.path("resource").path("id").asText();
+                        String tempStatus = entry.path("resource").path("status").asText();
+                        String tempDesc = entry.path("resource").path("description").asText();
+                        if (!tempDesc.equals("") || idImaging.equals("")) {
+                            idImaging = tempId;
+                            statusImaging = tempStatus;
+                        }
+                    }
+                    System.out.println("ID ImagingStudy ditemukan: " + idImaging + " | Status: " + statusImaging);
+                    break;  // keluar dari loop kalau sudah dapat
+                } else {
+                    System.out.println("ImagingStudy belum tersedia, coba lagi...");
+                }
+            } catch (HttpClientErrorException ex) {
+                System.out.println("HTTP Error query ImagingStudy: " + ex.getStatusCode());
+                System.out.println("Response Body: " + ex.getResponseBodyAsString());
+            } catch (Exception ex) {
+                System.out.println("Gagal query ImagingStudy: " + ex.getMessage());
+            }
+        }
+
+        // 7. Kalau ImagingStudy tidak ditemukan → set label Pending
+        if (idImaging.equals("")) {
+            System.out.println("ImagingStudy tidak ditemukan setelah " + maxRetry + " percobaan.");
+            try {
+                HttpEntity labelPendingEntity = new HttpEntity((MultiValueMap) orthancHeaders);
+                apiOrthanc.getRest().exchange(
+                        baseOrthanc + "/studies/" + studyId + "/labels/SatuSehat-Pending",
+                        HttpMethod.PUT, labelPendingEntity, String.class);
+                System.out.println("Label SatuSehat-Pending ditambahkan ke study: " + studyId);
+            } catch (Exception exLabel) {
+                System.out.println("Gagal set label Pending Orthanc: " + exLabel.getMessage());
+            }
+            return false;
+        }
+
+        // 8. Simpan ID ImagingStudy ke DB + update label
+        if (Sequel.menyimpantf2("satu_sehat_imagingstudy_radiologi", "?,?,?,?", "No.Order", 4,
+                new String[]{accessionNumber, kdJenisPrw, idServiceRequest, idImaging})) {
+
+            System.out.println("ID ImagingStudy berhasil disimpan ke database: " + idImaging);
+
+            // Hapus label Pending
+            try {
+                HttpEntity deletePendingEntity = new HttpEntity((MultiValueMap) orthancHeaders);
+                apiOrthanc.getRest().exchange(
+                        baseOrthanc + "/studies/" + studyId + "/labels/SatuSehat-Pending",
+                        HttpMethod.DELETE, deletePendingEntity, String.class);
+                System.out.println("Label SatuSehat-Pending dihapus dari study: " + studyId);
+            } catch (Exception exDelLabel) {
+                System.out.println("Gagal hapus label Pending (mungkin belum ada): " + exDelLabel.getMessage());
+            }
+
+            // Set label Terkirim
+            try {
+                HttpEntity labelEntity = new HttpEntity((MultiValueMap) orthancHeaders);
+                apiOrthanc.getRest().exchange(
+                        baseOrthanc + "/studies/" + studyId + "/labels/SatuSehat-Terkirim",
+                        HttpMethod.PUT, labelEntity, String.class);
+                System.out.println("Label SatuSehat-Terkirim ditambahkan ke study: " + studyId);
+            } catch (Exception exLabel) {
+                System.out.println("Gagal set label Terkirim Orthanc: " + exLabel.getMessage());
+            }
+
+            System.out.println("SUCCESS -> " + accessionNumber + " -> " + idImaging);
+            return true;
+        }
+
+    } catch (HttpClientErrorException ex) {
+        System.out.println("HTTP Error prosesKirimRadiologi: " + ex.getStatusCode());
+        System.out.println("Response Body: " + ex.getResponseBodyAsString());
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+    return false;
+}
+    
 }
