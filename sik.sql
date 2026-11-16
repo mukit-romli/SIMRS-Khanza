@@ -403,6 +403,28 @@ INSERT INTO `antriaps` VALUES ('APS20260503001','2026/02/25/000005');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `antrikesediaanmenungguigd`
+--
+
+DROP TABLE IF EXISTS `antrikesediaanmenungguigd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `antrikesediaanmenungguigd` (
+  `no_surat` varchar(20) DEFAULT NULL,
+  `no_rawat` varchar(17) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `antrikesediaanmenungguigd`
+--
+
+LOCK TABLES `antrikesediaanmenungguigd` WRITE;
+/*!40000 ALTER TABLE `antrikesediaanmenungguigd` DISABLE KEYS */;
+/*!40000 ALTER TABLE `antrikesediaanmenungguigd` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `antrilabmb`
 --
 
@@ -877,6 +899,29 @@ LOCK TABLES `antripermintaansecondopinion` WRITE;
 /*!40000 ALTER TABLE `antripermintaansecondopinion` DISABLE KEYS */;
 INSERT INTO `antripermintaansecondopinion` VALUES ('SO20260515001','2026/05/11/000001'),('SO20260625001','2026/02/25/000005');
 /*!40000 ALTER TABLE `antripermintaansecondopinion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `antripernyataanbersediadirujuk`
+--
+
+DROP TABLE IF EXISTS `antripernyataanbersediadirujuk`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `antripernyataanbersediadirujuk` (
+  `no_surat` varchar(20) DEFAULT NULL,
+  `no_rawat` varchar(17) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `antripernyataanbersediadirujuk`
+--
+
+LOCK TABLES `antripernyataanbersediadirujuk` WRITE;
+/*!40000 ALTER TABLE `antripernyataanbersediadirujuk` DISABLE KEYS */;
+INSERT INTO `antripernyataanbersediadirujuk` VALUES ('PPU20261115001','2026/03/14/000001');
+/*!40000 ALTER TABLE `antripernyataanbersediadirujuk` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -9985,6 +10030,122 @@ LOCK TABLES `hasil_pemeriksaan_slit_lamp_gambar` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `hasil_pemeriksaan_spirometri`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_spirometri`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_spirometri` (
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `kd_dokter` varchar(20) NOT NULL,
+  `diagnosa_klinis` varchar(50) NOT NULL,
+  `kiriman_dari` varchar(50) NOT NULL,
+  `tinggi_badan` varchar(6) NOT NULL,
+  `berat_badan` varchar(6) NOT NULL,
+  `etnis` enum('Asia Tenggara','Asia Timur Laut','Kaukasia','Afrika-Amerika','Lainnya/Campuran') NOT NULL,
+  `persamaan_referensi` varchar(50) NOT NULL,
+  `suhu_ruangan` varchar(5) NOT NULL,
+  `tekanan_barometrik` varchar(6) NOT NULL,
+  `obat_dikonsumsi` varchar(200) NOT NULL,
+  `bronkodilator` varchar(100) NOT NULL,
+  `fvc_pre` varchar(10) NOT NULL,
+  `fvc_pred` varchar(10) NOT NULL,
+  `fvc_lln` varchar(10) NOT NULL,
+  `fvc_persen` varchar(10) NOT NULL,
+  `fvc_z` varchar(10) NOT NULL,
+  `fvc_post` varchar(10) NOT NULL,
+  `fvc_post_persen` varchar(10) NOT NULL,
+  `fvc_perubahan` varchar(10) NOT NULL,
+  `fev1_pre` varchar(10) NOT NULL,
+  `fev1_pred` varchar(10) NOT NULL,
+  `fev1_lln` varchar(10) NOT NULL,
+  `fev1_persen` varchar(10) NOT NULL,
+  `fev1_z` varchar(10) NOT NULL,
+  `fev1_post` varchar(10) NOT NULL,
+  `fev1_post_persen` varchar(10) NOT NULL,
+  `fev1_perubahan` varchar(10) NOT NULL,
+  `rasio_pre` varchar(10) NOT NULL,
+  `rasio_pred` varchar(10) NOT NULL,
+  `rasio_lln` varchar(10) NOT NULL,
+  `rasio_persen` varchar(10) NOT NULL,
+  `rasio_z` varchar(10) NOT NULL,
+  `rasio_post` varchar(10) NOT NULL,
+  `rasio_post_persen` varchar(10) NOT NULL,
+  `rasio_perubahan` varchar(10) NOT NULL,
+  `pef_pre` varchar(10) NOT NULL,
+  `pef_pred` varchar(10) NOT NULL,
+  `pef_lln` varchar(10) NOT NULL,
+  `pef_persen` varchar(10) NOT NULL,
+  `pef_z` varchar(10) NOT NULL,
+  `pef_post` varchar(10) NOT NULL,
+  `pef_post_persen` varchar(10) NOT NULL,
+  `pef_perubahan` varchar(10) NOT NULL,
+  `fef2575_pre` varchar(10) NOT NULL,
+  `fef2575_pred` varchar(10) NOT NULL,
+  `fef2575_lln` varchar(10) NOT NULL,
+  `fef2575_persen` varchar(10) NOT NULL,
+  `fef2575_z` varchar(10) NOT NULL,
+  `fef2575_post` varchar(10) NOT NULL,
+  `fef2575_post_persen` varchar(10) NOT NULL,
+  `fef2575_perubahan` varchar(10) NOT NULL,
+  `manuver_pre` varchar(2) NOT NULL,
+  `grade_fvc_pre` enum('-','A','B','C','D','E','U','F') NOT NULL,
+  `grade_fev1_pre` enum('-','A','B','C','D','E','U','F') NOT NULL,
+  `manuver_post` varchar(2) NOT NULL,
+  `grade_fvc_post` enum('-','A','B','C','D','E','U','F') NOT NULL,
+  `grade_fev1_post` enum('-','A','B','C','D','E','U','F') NOT NULL,
+  `operator` varchar(50) NOT NULL,
+  `catatan_pelaksanaan` varchar(300) NOT NULL,
+  `pola_gangguan` enum('Normal','Obstruksi','Restriksi (dugaan)','Campuran (dugaan)','Non-spesifik') NOT NULL,
+  `derajat` enum('-','Ringan','Sedang','Berat') NOT NULL,
+  `respons_bronkodilator` enum('Tidak Dilakukan','Tidak Signifikan','Signifikan') NOT NULL,
+  `kesimpulan` varchar(300) NOT NULL,
+  `rekomendasi` varchar(200) NOT NULL,
+  PRIMARY KEY (`no_rawat`),
+  KEY `kd_dokter` (`kd_dokter`),
+  CONSTRAINT `hasil_pemeriksaan_spirometri_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `hasil_pemeriksaan_spirometri_ibfk_2` FOREIGN KEY (`kd_dokter`) REFERENCES `dokter` (`kd_dokter`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_spirometri`
+--
+
+LOCK TABLES `hasil_pemeriksaan_spirometri` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_spirometri` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_spirometri` VALUES ('2026/03/14/000001','2026-11-14 17:17:43','D0000004','2','1','3','4','Lainnya/Campuran','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','A','E','51','B','U','52','53	','Normal','Sedang','Tidak Signifikan','54','55');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_spirometri` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hasil_pemeriksaan_spirometri_gambar`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_spirometri_gambar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_spirometri_gambar` (
+  `no_rawat` varchar(20) NOT NULL,
+  `photo` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`no_rawat`),
+  CONSTRAINT `hasil_pemeriksaan_spirometri_gambar_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `hasil_pemeriksaan_spirometri` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_spirometri_gambar`
+--
+
+LOCK TABLES `hasil_pemeriksaan_spirometri_gambar` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_spirometri_gambar` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_spirometri_gambar` VALUES ('2026/03/14/000001','pages/upload/polos1_Thorak.jpg');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_spirometri_gambar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hasil_pemeriksaan_treadmill`
 --
 
@@ -10242,6 +10403,133 @@ LOCK TABLES `hasil_pemeriksaan_usg_gynecologi_gambar` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `hasil_pemeriksaan_usg_kepala`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_usg_kepala`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_usg_kepala` (
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `kd_dokter` varchar(20) NOT NULL,
+  `diagnosa_klinis` varchar(50) NOT NULL,
+  `kiriman_dari` varchar(50) NOT NULL,
+  `sistem_ventrikel` varchar(200) NOT NULL,
+  `perdarahan_ivh` varchar(200) NOT NULL,
+  `parenkim_otak` varchar(200) NOT NULL,
+  `garis_tengah` varchar(200) NOT NULL,
+  `fossa_posterior` varchar(200) NOT NULL,
+  `ruang_ekstra_aksial` varchar(200) NOT NULL,
+  `doppler_ri` varchar(200) NOT NULL,
+  `kesimpulan` varchar(300) NOT NULL,
+  PRIMARY KEY (`no_rawat`),
+  KEY `kd_dokter` (`kd_dokter`),
+  CONSTRAINT `hasil_pemeriksaan_usg_kepala_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `hasil_pemeriksaan_usg_kepala_ibfk_2` FOREIGN KEY (`kd_dokter`) REFERENCES `dokter` (`kd_dokter`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_usg_kepala`
+--
+
+LOCK TABLES `hasil_pemeriksaan_usg_kepala` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_kepala` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_usg_kepala` VALUES ('2026/03/14/000001','2026-11-14 00:19:53','D0000004','2','1','3','4','5','6','7','8','9','10');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_kepala` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hasil_pemeriksaan_usg_kepala_gambar`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_usg_kepala_gambar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_usg_kepala_gambar` (
+  `no_rawat` varchar(20) NOT NULL,
+  `photo` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`no_rawat`),
+  CONSTRAINT `hasil_pemeriksaan_usg_kepala_gambar_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `hasil_pemeriksaan_usg_kepala` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_usg_kepala_gambar`
+--
+
+LOCK TABLES `hasil_pemeriksaan_usg_kepala_gambar` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_kepala_gambar` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_usg_kepala_gambar` VALUES ('2026/03/14/000001','pages/upload/polos1_Thorak.jpg');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_kepala_gambar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hasil_pemeriksaan_usg_mammae`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_usg_mammae`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_usg_mammae` (
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `kd_dokter` varchar(20) NOT NULL,
+  `diagnosa_klinis` varchar(50) NOT NULL,
+  `kiriman_dari` varchar(50) NOT NULL,
+  `komposisi_jaringan` varchar(100) NOT NULL,
+  `mammae_kanan` varchar(200) NOT NULL,
+  `mammae_kiri` varchar(200) NOT NULL,
+  `kulit_puting` varchar(200) NOT NULL,
+  `aksila_kanan` varchar(200) NOT NULL,
+  `aksila_kiri` varchar(200) NOT NULL,
+  `kesimpulan` varchar(300) NOT NULL,
+  `kategori_birads` enum('0','1','2','3','4A','4B','4C','5','6') NOT NULL,
+  `rekomendasi` varchar(200) NOT NULL,
+  PRIMARY KEY (`no_rawat`),
+  KEY `kd_dokter` (`kd_dokter`),
+  CONSTRAINT `hasil_pemeriksaan_usg_mammae_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `hasil_pemeriksaan_usg_mammae_ibfk_2` FOREIGN KEY (`kd_dokter`) REFERENCES `dokter` (`kd_dokter`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_usg_mammae`
+--
+
+LOCK TABLES `hasil_pemeriksaan_usg_mammae` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_mammae` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_usg_mammae` VALUES ('2026/03/14/000001','2026-11-14 00:20:37','D0000004','2','1','3','4	','5	','6	','7	','8	','9','4B','10');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_mammae` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hasil_pemeriksaan_usg_mammae_gambar`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_usg_mammae_gambar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_usg_mammae_gambar` (
+  `no_rawat` varchar(20) NOT NULL,
+  `photo` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`no_rawat`),
+  CONSTRAINT `hasil_pemeriksaan_usg_mammae_gambar_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `hasil_pemeriksaan_usg_mammae` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_usg_mammae_gambar`
+--
+
+LOCK TABLES `hasil_pemeriksaan_usg_mammae_gambar` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_mammae_gambar` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_usg_mammae_gambar` VALUES ('2026/03/14/000001','pages/upload/polos1_Thorak.jpg');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_mammae_gambar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hasil_pemeriksaan_usg_neonatus`
 --
 
@@ -10297,6 +10585,69 @@ CREATE TABLE `hasil_pemeriksaan_usg_neonatus_gambar` (
 LOCK TABLES `hasil_pemeriksaan_usg_neonatus_gambar` WRITE;
 /*!40000 ALTER TABLE `hasil_pemeriksaan_usg_neonatus_gambar` DISABLE KEYS */;
 /*!40000 ALTER TABLE `hasil_pemeriksaan_usg_neonatus_gambar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hasil_pemeriksaan_usg_testis`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_usg_testis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_usg_testis` (
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `kd_dokter` varchar(20) NOT NULL,
+  `diagnosa_klinis` varchar(50) NOT NULL,
+  `kiriman_dari` varchar(50) NOT NULL,
+  `testis_kanan` varchar(200) NOT NULL,
+  `testis_kiri` varchar(200) NOT NULL,
+  `epididimis_kanan` varchar(200) NOT NULL,
+  `epididimis_kiri` varchar(200) NOT NULL,
+  `hidrokel` varchar(200) NOT NULL,
+  `varikokel` varchar(200) NOT NULL,
+  `dinding_skrotum` varchar(200) NOT NULL,
+  `kesimpulan` varchar(300) NOT NULL,
+  PRIMARY KEY (`no_rawat`),
+  KEY `kd_dokter` (`kd_dokter`),
+  CONSTRAINT `hasil_pemeriksaan_usg_testis_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `hasil_pemeriksaan_usg_testis_ibfk_2` FOREIGN KEY (`kd_dokter`) REFERENCES `dokter` (`kd_dokter`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_usg_testis`
+--
+
+LOCK TABLES `hasil_pemeriksaan_usg_testis` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_testis` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_usg_testis` VALUES ('2026/03/14/000001','2026-11-13 23:54:36','D0000004','2','1','3	','4	','5	','6	','7	','8	','9	','10	');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_testis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hasil_pemeriksaan_usg_testis_gambar`
+--
+
+DROP TABLE IF EXISTS `hasil_pemeriksaan_usg_testis_gambar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `hasil_pemeriksaan_usg_testis_gambar` (
+  `no_rawat` varchar(20) NOT NULL,
+  `photo` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`no_rawat`),
+  CONSTRAINT `hasil_pemeriksaan_usg_testis_gambar_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `hasil_pemeriksaan_usg_testis` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hasil_pemeriksaan_usg_testis_gambar`
+--
+
+LOCK TABLES `hasil_pemeriksaan_usg_testis_gambar` WRITE;
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_testis_gambar` DISABLE KEYS */;
+INSERT INTO `hasil_pemeriksaan_usg_testis_gambar` VALUES ('2026/03/14/000001','pages/upload/polos1_Thorak.jpg');
+/*!40000 ALTER TABLE `hasil_pemeriksaan_usg_testis_gambar` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -28645,6 +28996,45 @@ INSERT INTO `presensi` VALUES ('2022-05-01',112,'HB',1),('2022-05-04',112,'HR',1
 UNLOCK TABLES;
 
 --
+-- Table structure for table `profil_ringkas_rawat_jalan`
+--
+
+DROP TABLE IF EXISTS `profil_ringkas_rawat_jalan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `profil_ringkas_rawat_jalan` (
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` datetime NOT NULL,
+  `alergi` varchar(255) DEFAULT NULL,
+  `diagnosis_utama` varchar(255) NOT NULL,
+  `diagnosis_sekunder` varchar(255) DEFAULT NULL,
+  `riwayat_penyakit` varchar(500) DEFAULT NULL,
+  `anamnesis` varchar(500) NOT NULL,
+  `pemeriksaan_fisik` varchar(500) NOT NULL,
+  `pemeriksaan_penunjang` varchar(500) DEFAULT NULL,
+  `terapi` varchar(500) NOT NULL,
+  `tindakan` varchar(255) DEFAULT NULL,
+  `tindak_lanjut` enum('Kontrol Ulang','Dirujuk','Rawat Inap','Selesai') NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `kd_dokter` varchar(20) NOT NULL,
+  PRIMARY KEY (`no_rawat`),
+  KEY `kd_dokter` (`kd_dokter`),
+  CONSTRAINT `profil_ringkas_rawat_jalan_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `profil_ringkas_rawat_jalan_ibfk_2` FOREIGN KEY (`kd_dokter`) REFERENCES `dokter` (`kd_dokter`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `profil_ringkas_rawat_jalan`
+--
+
+LOCK TABLES `profil_ringkas_rawat_jalan` WRITE;
+/*!40000 ALTER TABLE `profil_ringkas_rawat_jalan` DISABLE KEYS */;
+INSERT INTO `profil_ringkas_rawat_jalan` VALUES ('2026/10/22/000001','2026-11-13 15:02:25','1','2','3','4	','5	','6	','7	','8	','9','Kontrol Ulang','10','D0000004');
+/*!40000 ALTER TABLE `profil_ringkas_rawat_jalan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `propinsi`
 --
 
@@ -37423,6 +37813,67 @@ LOCK TABLES `surat_keluar_set_nomor` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `surat_kesediaan_menunggu_igd`
+--
+
+DROP TABLE IF EXISTS `surat_kesediaan_menunggu_igd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `surat_kesediaan_menunggu_igd` (
+  `no_surat` varchar(20) NOT NULL,
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` date NOT NULL,
+  `nama_pj` varchar(50) NOT NULL,
+  `no_ktppj` varchar(20) NOT NULL,
+  `tempat_lahirpj` varchar(20) NOT NULL,
+  `lahirpj` date NOT NULL,
+  `jkpj` enum('L','P') NOT NULL,
+  `alamatpj` varchar(100) NOT NULL,
+  `hubungan` enum('Diri Sendiri','Suami','Istri','Anak','Ayah','Ibu','Saudara','Keponakan') NOT NULL,
+  `no_telp` varchar(30) NOT NULL,
+  `nip` varchar(20) NOT NULL,
+  PRIMARY KEY (`no_surat`),
+  KEY `nip` (`nip`),
+  KEY `no_rawat` (`no_rawat`),
+  CONSTRAINT `surat_kesediaan_menunggu_igd_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `surat_kesediaan_menunggu_igd_ibfk_2` FOREIGN KEY (`nip`) REFERENCES `petugas` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `surat_kesediaan_menunggu_igd`
+--
+
+LOCK TABLES `surat_kesediaan_menunggu_igd` WRITE;
+/*!40000 ALTER TABLE `surat_kesediaan_menunggu_igd` DISABLE KEYS */;
+/*!40000 ALTER TABLE `surat_kesediaan_menunggu_igd` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `surat_kesediaan_menunggu_igd_pembuat_pernyataan`
+--
+
+DROP TABLE IF EXISTS `surat_kesediaan_menunggu_igd_pembuat_pernyataan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `surat_kesediaan_menunggu_igd_pembuat_pernyataan` (
+  `no_surat` varchar(20) NOT NULL,
+  `photo` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`no_surat`),
+  CONSTRAINT `surat_kesediaan_menunggu_igd_pembuat_pernyataan_ibfk_1` FOREIGN KEY (`no_surat`) REFERENCES `surat_kesediaan_menunggu_igd` (`no_surat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `surat_kesediaan_menunggu_igd_pembuat_pernyataan`
+--
+
+LOCK TABLES `surat_kesediaan_menunggu_igd_pembuat_pernyataan` WRITE;
+/*!40000 ALTER TABLE `surat_kesediaan_menunggu_igd_pembuat_pernyataan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `surat_kesediaan_menunggu_igd_pembuat_pernyataan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `surat_keterangan_berobat`
 --
 
@@ -38227,6 +38678,69 @@ LOCK TABLES `surat_permohonan_privasi_pembuat_permohonan` WRITE;
 /*!40000 ALTER TABLE `surat_permohonan_privasi_pembuat_permohonan` DISABLE KEYS */;
 INSERT INTO `surat_permohonan_privasi_pembuat_permohonan` VALUES ('SPV20260506001','pages/upload/SPV20260506001.jpeg'),('SPV20260625001','pages/upload/SPV20260625001.jpeg');
 /*!40000 ALTER TABLE `surat_permohonan_privasi_pembuat_permohonan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `surat_pernyataan_bersedia_dirujuk`
+--
+
+DROP TABLE IF EXISTS `surat_pernyataan_bersedia_dirujuk`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `surat_pernyataan_bersedia_dirujuk` (
+  `no_surat` varchar(20) NOT NULL,
+  `no_rawat` varchar(17) NOT NULL,
+  `tanggal` date NOT NULL,
+  `nama_pj` varchar(50) NOT NULL,
+  `no_ktppj` varchar(20) NOT NULL,
+  `tempat_lahirpj` varchar(20) NOT NULL,
+  `lahirpj` date NOT NULL,
+  `jkpj` enum('L','P') NOT NULL,
+  `alamatpj` varchar(100) NOT NULL,
+  `hubungan` enum('Diri Sendiri','Suami','Istri','Anak','Ayah','Ibu','Saudara','Keponakan') NOT NULL,
+  `no_telp` varchar(30) NOT NULL,
+  `nip` varchar(20) NOT NULL,
+  PRIMARY KEY (`no_surat`),
+  KEY `nip` (`nip`),
+  KEY `no_rawat` (`no_rawat`),
+  CONSTRAINT `surat_pernyataan_bersedia_dirujuk_ibfk_1` FOREIGN KEY (`no_rawat`) REFERENCES `reg_periksa` (`no_rawat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `surat_pernyataan_bersedia_dirujuk_ibfk_2` FOREIGN KEY (`nip`) REFERENCES `petugas` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `surat_pernyataan_bersedia_dirujuk`
+--
+
+LOCK TABLES `surat_pernyataan_bersedia_dirujuk` WRITE;
+/*!40000 ALTER TABLE `surat_pernyataan_bersedia_dirujuk` DISABLE KEYS */;
+INSERT INTO `surat_pernyataan_bersedia_dirujuk` VALUES ('PPU20261115001','2026/03/14/000001','2026-11-15','1','4','2','2026-11-15','L','5','Diri Sendiri','3','120000134');
+/*!40000 ALTER TABLE `surat_pernyataan_bersedia_dirujuk` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan`
+--
+
+DROP TABLE IF EXISTS `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan` (
+  `no_surat` varchar(20) NOT NULL,
+  `photo` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`no_surat`),
+  CONSTRAINT `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan_ibfk_1` FOREIGN KEY (`no_surat`) REFERENCES `surat_pernyataan_bersedia_dirujuk` (`no_surat`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan`
+--
+
+LOCK TABLES `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan` WRITE;
+/*!40000 ALTER TABLE `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan` DISABLE KEYS */;
+INSERT INTO `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan` VALUES ('PPU20261115001','pages/upload/PPU20261115001.jpeg');
+/*!40000 ALTER TABLE `surat_pernyataan_bersedia_dirujuk_pembuat_pernyataan` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -40342,7 +40856,7 @@ CREATE TABLE `temporary_bayar_ranap` (
 
 LOCK TABLES `temporary_bayar_ranap` WRITE;
 /*!40000 ALTER TABLE `temporary_bayar_ranap` DISABLE KEYS */;
-INSERT INTO `temporary_bayar_ranap` VALUES (0,'No.Nota',': 2026/09/18/RI0001','','','','','','-','','','','','','','','',''),(1,'Bangsal/Kamar',': K3.01, Kamar Kelas III','','','','','','-','','','','','','','','',''),(2,'Tgl.Perawatan',': 14 March 2026 15:37:52 s.d. 18 September 2026 00:00:00 ( 4 Hari )','','','','','','-','','','','','','','','',''),(3,'No.R.M.',': 000006','','','','','','-','','','','','','','','',''),(4,'Nama Pasien',': Sakha Hamizan Aqila (9Th)','','','','','','-','','','','','','','','',''),(5,'Alamat Pasien',': PAJANGAN BANTUL, -, -, -','','','','','','-','','','','','','','','',''),(6,'Dokter ',':','','','','','','-','','','','','','','','',''),(7,'                           ','dr. Hilyatul Nadia','','','','','','Dokter','','','','','','','','',''),(8,'Registrasi',':','','','','','10,000','Registrasi','','','','','','','','',''),(9,'Ruang',':','','','','','','Kamar','','','','','','','','',''),(10,'                           ','K3.01, Kamar Kelas III',':','100,000','4.0','0','400,000','Kamar','','','','','','','','',''),(11,'                           ','K1.01, Kamar Kelas I',':','500,000','0.0','0','0','Kamar','','','','','','','','',''),(12,'','Total Kamar Inap : 400,000','','','','','','TtlKamar','','','','','','','','',''),(13,'Rincian Biaya',':','','','','','','Ranap Dokter','','','','','','','','',''),(14,'1. Dokter Umum',':','','','','','','Ranap Dokter','','','','','','','','',''),(15,'                           ','Administrasi  Asuransi / Pihak ke - III',':','75,000','1.0','0','75,000','Ralan Dokter','','','','','','','','',''),(16,'','Total Dokter Umum : 75,000','','','','','','TtlRanap Dokter','','','','','','','','',''),(17,'2. Perawatan',':','','','','','','Ranap Dokter','','','','','','','','',''),(18,'                           ','IRD Medikasi Luka Kecil',':','25,000','1.0','0','25,000','Ralan Dokter','','','','','','','','',''),(19,'                           ','IRD Neagel',':','95,000','1.0','0','95,000','Ralan Dokter','','','','','','','','',''),(20,'','Total Perawatan : 120,000','','','','','','TtlRanap Dokter','','','','','','','','',''),(21,'3. Pemeriksaan Lab',':','','','','','','Laborat','','','','','','','','',''),(22,'                           ','Hematologi Darah Rutin',':','89,250','2.0','140,000','318,500','Laborat','','','','','','','','',''),(23,'                           ','Pemeriksaan RT-PCR + Swab',':','0','1.0','0','0','Laborat','','','','','','','','',''),(24,'','Total Periksa Lab : 318,500','','','','','','TtlLaborat','','','','','','','','',''),(25,'4. Pemeriksaan Radiologi',':','','','','','','Radiologi','','','','','','','','',''),(26,'                           ','1 FOTO',':','210,000','1.0','0','210,000','Radiologi','','','','','','','','',''),(27,'','Total Periksa Radiologi : 210,000','','','','','','TtlRadiologi','','','','','','','','',''),(28,'5. Obat & BHP',':','','','','','','Obat','','','','','','','','',''),(31,'Potongan Biaya',':','','','','','','Potongan','','','','','','','','',''),(32,'                           ','POTONGAN BINGUNG',':','100,000','1','0','-100,000','Potongan','','','','','','','','',''),(33,'                           ','POTONGAN KONSULTASI',':','100,000','1','0','-100,000','Potongan','','','','','','','','',''),(34,'                           ','POTONGAN MAJU',':','200,000','1','0','-200,000','Potongan','','','','','','','','',''),(35,'','Total Potongan : 400,000','','','','','','TtlPotongan','','','','','','','','',''),(37,'','','','','','','','Tagihan','','','','','','','','',''),(38,'TOTAL TAGIHAN',':','','','','','<b>733,500</b>','Tagihan','','','','','','','','',''),(39,'PPN',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(40,'TAGIHAN+PPN',':','','','','','<b>733,500</b>','Tagihan','','','','','','','','',''),(41,'','','','','','','','Tagihan','','','','','','','','',''),(42,'DEPOSIT',':','','','','','<b>1,000,000</b>','Tagihan','','','','','','','','',''),(43,'BAYAR',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(44,'KEMBALI',':','','','','','<b>266,500</b>','Tagihan','','','','','','','','','');
+INSERT INTO `temporary_bayar_ranap` VALUES (0,'No.Nota',': 2026/11/16/RI0001','','','','','','-','','','','','','','','',''),(1,'Bangsal/Kamar',': K3.01, Kamar Kelas III','','','','','','-','','','','','','','','',''),(2,'Tgl.Perawatan',': 11 May 2026 09:26:20 s.d. 16 November 2026 00:00:00 ( 0 Hari )','','','','','','-','','','','','','','','',''),(3,'No.R.M.',': 000057','','','','','','-','','','','','','','','',''),(4,'Nama Pasien',': BY.NY.RAHMANIA (0Hr)','','','','','','-','','','','','','','','',''),(5,'Alamat Pasien',': -, -, -, -','','','','','','-','','','','','','','','',''),(6,'Registrasi',':','','','','','0','Registrasi','','','','','','','','',''),(7,'Ruang',':','','','','','','Kamar','','','','','','','','',''),(8,'                           ','K3.01, Kamar Kelas III',':','100.000','0.0','0','0','Kamar','','','','','','','','',''),(9,'Rincian Biaya',':','','','','','','Ranap Dokter','','','','','','','','',''),(10,'1. Pemeriksaan Lab',':','','','','','','Laborat','','','','','','','','',''),(11,'                           ','Pemeriksaan RT-PCR + Swab',':','0','1.0','0','0','Laborat','','','','','','','','',''),(12,'2. Obat & BHP',':','','','','','','Obat','','','','','','','','',''),(17,'','','','','','','','Tagihan','','','','','','','','',''),(18,'TOTAL TAGIHAN',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(19,'PPN',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(20,'TAGIHAN+PPN',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(21,'','','','','','','','Tagihan','','','','','','','','',''),(22,'DEPOSIT',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(23,'BAYAR',':','','','','','<b>0</b>','Tagihan','','','','','','','','',''),(24,'KEMBALI',':','','','','','<b>0</b>','Tagihan','','','','','','','','','');
 /*!40000 ALTER TABLE `temporary_bayar_ranap` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -43758,6 +44272,13 @@ CREATE TABLE `user` (
   `laporan_reaksi_transfusi` enum('true','false') DEFAULT NULL,
   `penilaian_grace_scor` enum('true','false') DEFAULT NULL,
   `penilaian_bishop_scor` enum('true','false') DEFAULT NULL,
+  `profil_ringkas_rawat_jalan` enum('true','false') DEFAULT NULL,
+  `hasil_usg_testis` enum('true','false') DEFAULT NULL,
+  `hasil_usg_kepala` enum('true','false') DEFAULT NULL,
+  `hasil_usg_mammae` enum('true','false') DEFAULT NULL,
+  `hasil_spirometri` enum('true','false') DEFAULT NULL,
+  `surat_pernyataan_bersedia_dirujuk` enum('true','false') DEFAULT NULL,
+  `surat_kesediaan_menunggu_igd` enum('true','false') DEFAULT NULL,
   PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -43768,7 +44289,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('$ó5ìžHÉïËvg‘ÑInc','	.Ò½,iA–RÂøu™','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true'),('ÎL¥ùx_¿`_y\\/®','™_s\0„¿qŒ­+P\"£','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true');
+INSERT INTO `user` VALUES ('wb‚M_Æ‹ª«í£Àæ¸','SÝ\n³bÔè\rDk¶»#Õj','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true'),('$ó5ìžHÉïËvg‘ÑInc','	.Ò½,iA–RÂøu™','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true','true');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -44803,4 +45324,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-11-12 10:03:38
+-- Dump completed on 2026-11-16 10:55:46
