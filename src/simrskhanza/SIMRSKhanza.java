@@ -11,6 +11,9 @@
  */
 package simrskhanza;
 
+import fungsi.DlgAktivasi;
+import fungsi.LicenseManager;
+import javax.swing.JOptionPane;
 import usu.widget.util.WidgetUtilities;
 
 /**
@@ -19,15 +22,70 @@ import usu.widget.util.WidgetUtilities;
  */
 public class SIMRSKhanza {
 
+    private static int sisaHariLisensi = 0;
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        // 🔥 CEK LISENSI SEBELUM APLIKASI DIJALANKAN
+        int sisaHari = LicenseManager.cekLisensi();
+        
+        // Cek koneksi internet
+        if (sisaHari == -2) {
+            return;
+        }
+        
+        // Cek lisensi expired atau tidak ada
+        if (sisaHari <= 0) {
+            boolean expired = (sisaHari == 0);
+            DlgAktivasi dlg = new DlgAktivasi(null, expired);
+            dlg.setVisible(true);
+            
+            if (!dlg.isActivated()) {
+                JOptionPane.showMessageDialog(null,
+                    "Aplikasi tidak dapat dijalankan tanpa lisensi aktif.\n" +
+                    "Hubungi developer: WA 085334254726",
+                    "Lisensi Diperlukan", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+                return;
+            }
+            
+            // Setelah aktivasi, cek ulang
+            sisaHari = LicenseManager.cekLisensi();
+            if (sisaHari <= 0) {
+                JOptionPane.showMessageDialog(null,
+                    "Aktivasi gagal! Hubungi developer.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+                return;
+            }
+        }
+        
+        // Tampilkan warning jika hampir habis
+        if (sisaHari > 0 && sisaHari <= 7) {
+            JOptionPane.showMessageDialog(null,
+                "⚠ Lisensi akan habis dalam " + sisaHari + " hari!\n" +
+                "Segera hubungi developer untuk perpanjangan.\n" +
+                "WA: 085334254726",
+                "Peringatan Lisensi", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        // Simpan sisa hari untuk ditampilkan di title
+        sisaHariLisensi = sisaHari;
+        
+        // Jalankan aplikasi utama
         WidgetUtilities.invokeLater(() -> {
-           frmUtama utama=frmUtama.getInstance();
+           frmUtama utama = frmUtama.getInstance();
+           utama.setSisaHariLisensi(sisaHariLisensi);  // Kirim sisa hari ke frmUtama
            utama.isWall();
+           utama.updateWindowTitle();
            utama.setVisible(true);
         }); 
     }
     
+    public static int getSisaHariLisensi() {
+        return sisaHariLisensi;
+    }
 }
